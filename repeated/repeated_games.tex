@@ -1,0 +1,333 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{framed}
+\setlength{\parindent}{0em}
+
+\begin{document}
+
+\section*{Repeated games}
+
+\section{twice repeated PD}
+strategy profile resemble
+
+\[
+   { X, \left(X, X, X, X\right) }
+\]
+
+where X is strategy in first round, and $(X, X, X, X)$ are strategies in second round for each of the 4 histories that could arise in first round, there are thus $2^5 = 32$ different strategies \\
+
+let payoffs be 
+\[
+G > C > D > B
+\]
+
+
+The payoffs are 
+\[
+   U = \sum_{t = 0}^{T-1} \delta^t g_{t+1}
+\]
+
+\section{One Shot deviation principle}
+\begin{framed}
+   a strategy profile is SGPE if and only if at \textbf{any subgame}, no player can improve her payoff by change her action from said profile for one round only, ie no profitable one shot deviation
+\end{framed}	
+\begin{itemize}
+   \item finding a SGPE thus entails finding the consequences of a one shot deviation at stage $t$ knowing that at stage $t+1$ players will play the specified strategy profile
+   \item deviation must not be profitable for all $t$ 
+\end{itemize}	
+
+\section{Grim trigger}
+\begin{framed}
+   the grim trigger strategy: 
+   \begin{itemize}
+      \item cooperate and remain in cooperative state until there is a deviation
+      \item remain in punishment stage and defect forever
+   \end{itemize}	
+\end{framed}	
+
+\begin{center}
+   \begin{tabular}{c |c c c c c c c c c c}
+      standard & C & C & C & C & C & C & C & C & C & C \\
+               & C & C & C & C & C & C & C & C & C & C \\
+     \hline
+      with defection & C & C & C & C & D & D & D & D & D & D \\
+                     & C & C & C & C & C & D & D & D & D & D \\
+   \end{tabular}
+\end{center}  
+
+
+each stage thus falls into one of two categories
+\begin{itemize}
+   \item cooperative state: no defect yet
+      \[
+         V(Coop) = \sum_{i=0}^{\infty} C \delta^i = \frac{C}{1 - \delta}
+      \]
+   \item punishment state: defect at least once before
+      \[
+         V(Pun) = \sum_{i=0}^{\infty} D \delta^i = \frac{D}{1- \delta}
+      \]
+      
+\end{itemize}	
+
+To test for SGPE
+\begin{enumerate}
+   \item first test for profitability of deviation under cooperative state
+         \[
+         V(Coop) = V(Coop)
+         \]
+         \[
+            V(Defect) = G + \delta V(Pun)
+         \]
+         
+   \item then test for profitability of deviation under punishment state
+      \[
+         V(Coop) = B + \delta  V(Pun)
+      \]
+      \[
+         V(Defect) = V(Pun)
+      \]
+      
+\end{enumerate}	
+
+Alternatively, the consequences of deviating under cooperative state could be expressed as 
+\[
+   \sum \text{ gain from first round + losses for all future rounds}
+\]
+\[
+  \sum (G-C) + \delta (D-C) + \delta^2 (D-C) + ... \delta^{\infty} (D-C) \ge 0
+\]
+\[
+ (G-C) + \frac{\delta (D-C)}{1 - \delta } \ge 0
+\]
+\[
+   (G-C) \ge \frac{\delta (C-D)}{1 - \delta}
+\]
+
+
+\section{Tit for tat}
+\begin{framed}
+   The TFT strategy:
+   \begin{itemize}
+      \item start in mutual cooperation, then each player copies the move of the opponent in the previous round
+   \end{itemize}	
+\end{framed}	
+
+\begin{center}
+   \begin{tabular}{c |c c c c c c c c c c}
+      standard & C & C & C & C & C & C & C & C & C & C \\
+               & C & C & C & C & C & C & C & C & C & C \\
+     \hline
+      with defection & C & C & C & C & D & C & D & C & D & C \\
+                     & C & C & C & C & C & D & C & D & C & D \\
+   \end{tabular}
+\end{center}  
+
+each stage thus falls into one of four categories, let $V(X, X)$ denote the state of a stage where X, X were the strategies for the previous round
+\begin{itemize}
+   \item cooperative state: last round was C, C
+      \[
+         V(C, C) = \sum_{i=0}^{\infty} C \delta^i = \frac{C}{1 - \delta}
+      \]
+   \item punishment state: last round was D, D 
+      \[
+         V(D, D) = \sum_{i=0}^{\infty} D \delta^i = \frac{D}{1- \delta}
+      \]
+   \item alternating state 1: last round was C, D
+      \[
+      V(C, D) = \frac{G + B \delta}{1-\delta^2}
+      \]
+   \item alternating state 1: last round was D, C
+      \[
+      V(D, C) = \frac{B + G \delta}{1-\delta^2}
+      \]
+\end{itemize}	
+
+now test for profitability of deviation under each stage
+\begin{itemize}
+   \item under state V(C, C)
+      \begin{itemize}
+         \item TFT strategy is to play C, for a payoff of 
+            \[
+               V(C, C)
+            \]
+            
+         \item deviation strategy is to play D, stage effectively becomes $V(C, D)$  (as if opponent played D in the previous round, payoffs are
+            \[
+               V(C, D)
+            \]
+         hence first condition for TFT sustaining cooperation as SGPE is 
+         \begin{equation}
+            V(C, C) \ge V(C, D)
+         \end{equation}	
+            
+      \end{itemize}	
+
+   \item under state V(D, D)
+      \begin{itemize}
+         \item TFT strategy is to play D, for a payoff of 
+            \[
+               V(D, D)
+            \]
+            
+         \item deviation strategy is to play C, stage effectively becomes $V(D, C)$  (as if opponent played D in the previous round, payoffs are
+            \[
+               V(D, C)
+            \]
+         hence second condition for TFT sustaining cooperation as SGPE is 
+         \begin{equation}
+            V(D, D) \ge V(D, C)
+         \end{equation}	
+            
+      \end{itemize}	
+
+   \item under state V(C, D)
+      \begin{itemize}
+         \item TFT strategy is to play D, for a payoff of 
+            \[
+               V(C, D)
+            \]
+            
+         \item deviation strategy is to play C, stage effectively becomes $V(C, C)$  (as if opponent played D in the previous round, payoffs are
+            \[
+               V(C, C)
+            \]
+         hence second condition for TFT sustaining cooperation as SGPE is 
+         \begin{equation}
+            V(C, D) \ge V(C, C)
+         \end{equation}	
+            
+      \end{itemize}	
+   \item under state V(D, C)
+      \begin{itemize}
+         \item TFT strategy is to play C, for a payoff of 
+            \[
+               V(D, C)
+            \]
+            
+         \item deviation strategy is to play D, stage effectively becomes $V(D, D)$  (as if opponent played D in the previous round, payoffs are
+            \[
+               V(D, D)
+            \]
+         hence second condition for TFT sustaining cooperation as SGPE is 
+         \begin{equation}
+            V(D, C) \ge V(D, D)
+         \end{equation}	
+            
+      \end{itemize}	
+\end{itemize}	
+
+hence TFT is a SGPE if and only if 
+\begin{align*}
+   V(C, C) = V(C, D) \\
+   V(D, D) = V(D, C)
+\end{align*}	
+\section{Stick and carrorts}
+\begin{framed}
+   Stick and carrots strategy: 
+   \begin{itemize}
+      \item define punishment state as playing minimax, which is the minimum payoff that one player can induce to the other
+      \item more specifically, this entails P1 playing best response to P2, and P2 minimizing $\Pi_1$ wrt $p2$ 
+      \item play C if there is no defection
+      \item punish for t rounds and then return to cooperation, unless there is deviation in which case restart the clock
+   \end{itemize}	
+\end{framed}	
+
+given the collusive pricing example, 
+\begin{itemize}
+   \item profit function is
+      \[
+         \Pi_i = (p_i - 8)(44 - 2p_i +p_2)
+      \]
+   \item BR for price is
+      \[
+         p_i = \frac{60 + p_2}{4}
+      \]
+   \item under collusion / cooperation, 
+      \[
+      p_1 = p_2 = 26, \ \Pi_1 = \Pi_2 = 324
+      \]
+   \item under NE 
+      \[
+      p_1 = p_2 = 20, \ \Pi_1 = \Pi_2 = 288
+      \]
+   \item under minimax, 
+      \[
+      p_1 = p_2 = 8, \ \Pi_1 = \Pi_2 = 0
+      \]
+\end{itemize}	
+hence game resembles
+\begin{center}
+   \begin{tabular}{c |c c c c c c c c c c}
+      standard & 28 & 28& 28& 28& 28& 28& 28& 28& 28 \\
+               & 28 & 28& 28& 28& 28& 28& 28& 28& 28 \\
+     \hline
+      with defection & 28 & 28& 28& 28& 28& 21.5& 8& 28& 28 \\
+                     & 28 & 28& 28& 28& 28& 28& 8& 28& 28 \\
+     \hline
+      with defection in punsihment state 
+                     & 28 & 28& 28& 28& 28& 21.5& 8& 8& 28 \\
+                     & 28 & 28& 28& 28& 28& 28& 17& 8& 28 \\
+   \end{tabular}
+\end{center}  
+      
+the value of cooperative state
+\[
+   V(C) = 324 + \delta V(C) = \frac{324}{1- \delta}
+\]
+the value of punsihment state
+\[
+   V(D) = 0 + \delta V(C) = \delta \frac{324}{1- \delta}
+\]
+to test for SGPE
+\begin{itemize}
+   \item under cooperative state
+      \begin{itemize}
+         \item SC strategy is to play 26
+            \[
+               V(SC) = V(C) = 324 + \delta V(C)
+            \]
+            
+         \item deviation would be to play BR to 26, which is $21.5, $ giving payoff $\frac{729}{2}$ in the current round
+            \[
+               V(dev) = \frac{729}{2} + \delta V(D) = \frac{729}{2} + \delta^2 V(C)
+            \]
+            hence deviation not profitable if 
+           \begin{equation}
+              324 + \delta V(C) \ge \frac{729}{2} + \delta^2 V(C)
+           \end{equation}	 
+           \[
+           \delta V(C) (1 - \delta) \ge \frac{729}{2} - 324 
+           \]
+           \[
+              \delta \ge \frac{40.5}{324}
+           \]
+      \end{itemize}	
+   \item under punishment state
+      \begin{itemize}
+         \item SC strategy is to play 8
+            \[
+               V(SC) = V(D) = \delta V(C)
+            \]
+          \item deviation strategy is to deviate from 8 and play BR to opponent's 8, playing 17, giving a payoff of 162
+             \[
+                V(dev) = 162 + \delta V(D)
+             \]
+            hence deviation not profitable if
+           \begin{equation}
+              V(D) \ge 162 + \delta V(D)
+           \end{equation}	 
+           \[
+              V(D) (1- \delta) \ge 162
+           \]
+           \[
+           \delta V(C) (1 - \delta) \ge 162
+           \]
+           \[
+              \delta 324 \ge 162
+           \]
+      \end{itemize}	
+\end{itemize}	
+
+\end{document}	
